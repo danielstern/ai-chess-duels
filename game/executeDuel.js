@@ -3,7 +3,10 @@ import AI2 from '../sampleAIScript';
 import Chance from 'chance';
 const chance = new Chance(1);
 import {createStore} from 'redux';
-import {initAI} from './utility';
+import {
+    initAI,
+    getAvailableMoves
+} from './utility';
 
 import {
     reducer,
@@ -17,16 +20,16 @@ import {
     Color
 } from './constants'
 
-const allottedTime = 20000;
+const allottedTime = 5000;
 const player1IsWhite = chance.bool();
 
 export const players = [{
     id:"p1",
-    Color:player1IsWhite ? Color.WHITE : Color.BLACK,
+    color:player1IsWhite ? Color.WHITE : Color.BLACK,
     ai:ai1
 },{
     id:"p2",
-    Color:player1IsWhite ? Color.BLACK : Color.WHITE,
+    color:player1IsWhite ? Color.BLACK : Color.WHITE,
     ai:ai2
 }];
 
@@ -39,6 +42,9 @@ const startTurn =({id, store})=>{
     const timers = [];
     const state = store.getState();
     const player = players.find(player=>player.id===id);
+    const moves = getAvailableMoves({board:state.board,color:player.color});
+    console.log(moves);
+    return;
     const meta = {
         boardState:state.board,
         gameHistory:state.history,

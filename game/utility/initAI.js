@@ -4,6 +4,7 @@ export const initAI = (ai)=>{
         timeElapsedWarning:[],
         promoteListeners:[],
         tauntListeners:[],
+        executeTauntListeners:[],
         selectMoveListeners:[],
         provisionMoveListeners:[]
     };
@@ -14,14 +15,16 @@ export const initAI = (ai)=>{
         onTaunt:cb=>listeners.tauntListeners.push(cb),
         onPromote:cb=>listeners.promoteListeners.push(cb),
         selectMove:move=>listeners.selectMoveListeners.forEach(listener=>listener(move)),
-        provisionMove:move=>listeners.provisionMoveListeners.forEach(listener=>listener(move))
+        provisionMove:move=>listeners.provisionMoveListeners.forEach(listener=>listener(move)),
+        taunt:taunt=>listeners.executeTauntListeners.forEach(listener=>listener(taunt))
     });
 
     return {
-        onSelectMove(cb){listeners.selectMoveListeners.push(cb);  },
-        onProvisionMove(cb){listeners.provisionMoveListeners.push(cb);  },
+        onSelectMove(cb){listeners.selectMoveListeners.push(cb)},
+        onProvisionMove(cb){listeners.provisionMoveListeners.push(cb)},
+        onTaunt:cb=>listeners.executeTauntListeners.push(cb),
         dispatchTurnStart:(args)=>listeners.turnStart.forEach(listener=>listener(args)),
         dispatchTimeElapsedWarning:(args)=>listeners.timeElapsedWarning.forEach(listener=>listener(args)),
-
+        dispatchTaunt:cb=>listeners.tauntListeners.push(cb)
     };
 }
