@@ -1,0 +1,24 @@
+{
+  "name": "ai-chess-duels",
+  "version": "1.0.0",
+  "description": "You write an AI that wins at chess. We pit your AI not against puny, fleshy humans but instead against other AI in an epic challenge to see who is the greatest.",
+  "main": "sampleAIScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0"
+  },
+  "dependencies": {
+    "chance": "^1.0.6",
+    "redux": "^3.6.0"
+  }
+}
