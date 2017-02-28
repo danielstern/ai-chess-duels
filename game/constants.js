@@ -1,4 +1,3 @@
-// PIECES
 export const Type = {
     PAWN : `PAWN`,
     KING: `KING`,
@@ -13,25 +12,28 @@ export const Color = {
     BLACK : `BLACK`
 }
 
-// ACTIONS
-export const MOVE = `MOVE`;
-export const CASTLE = `CASTLE`;
-export const EN_PASSANT = `EN_PASSANT`;
-
-// RANKS
-export const Rank = {
-    a:"a",
-    b:"b",
-    c:"c",
-    d:"d",
-    e:"e",
-    f:"f",
-    g:"g",
-    h:"h",
+export const Direction = {
+    UP : `UP`,
+    DOWN : `DOWN`,
+    LEFT : `LEFT`,
+    RIGHT : `RIGHT`,
+    UP_LEFT : `UP_LEFT`,
+    UP_RIGHT : `UP_RIGHT`,
+    DOWN_LEFT : `DOWN_LEFT`,
+    DOWN_RIGHT :`DOWN_RIGHT`
 };
 
-// FILES
-export const File = {
+// ACTIONS
+export const Action = {
+    REMOVE_PIECE:`REMOVE_PIECE`,
+    MOVE_PIECE:`MOVE_PIECE`
+};
+
+// export const MOVE = `MOVE`;
+// export const CASTLE = `CASTLE`;
+// export const EN_PASSANT = `EN_PASSANT`;
+
+export const Rank = {
     1:"1",
     2:"2",
     3:"3",
@@ -40,4 +42,16 @@ export const File = {
     6:"6",
     7:"7",
     8:"8",
+};
+
+// FILES
+export const File = {
+    a:"a",
+    b:"b",
+    c:"c",
+    d:"d",
+    e:"e",
+    f:"f",
+    g:"g",
+    h:"h",
 };

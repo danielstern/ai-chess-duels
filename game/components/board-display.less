@@ -1,0 +1,30 @@
+.board-display {
+  width: 400px;
+  height: 400px;
+  display:block;
+  border: 1px solid gainsboro;
+  position: relative;
+}
+
+.board-square {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+
+  &[color="BLACK"] {
+    background-color: #222;
+    color: aliceblue;
+  }
+
+  &[color="WHITE"] {
+    background-color: #fafafa;
+  }
+  position: relative;
+}
+
+.piece-name-display {
+  //display: relative;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}

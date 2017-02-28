@@ -40,11 +40,10 @@ export const getBoard = ()=>{
         type:Type.KNIGHT
     },{
         rank:"1",
-        file:"H",
+        file:"h",
         color:Color.WHITE,
         type:Type.ROOK
     },
-    //
     {
         rank:"2",
         file:"a",
@@ -82,12 +81,10 @@ export const getBoard = ()=>{
         type:Type.PAWN
     },{
         rank:"2",
-        file:"H",
+        file:"h",
         color:Color.WHITE,
         type:Type.PAWN
     },
-    //
-    // 
     {
         rank:"8",
         file:"a",
@@ -125,11 +122,10 @@ export const getBoard = ()=>{
         type:Type.KNIGHT
     },{
         rank:"8",
-        file:"H",
+        file:"h",
         color:Color.BLACK,
         type:Type.ROOK
     },
-    //
     {
         rank:"7",
         file:"a",
@@ -167,7 +163,7 @@ export const getBoard = ()=>{
         type:Type.PAWN
     },{
         rank:"7",
-        file:"H",
+        file:"h",
         color:Color.BLACK,
         type:Type.PAWN
     }

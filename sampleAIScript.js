@@ -1,3 +1,6 @@
+import Chance from 'chance';
+const chance = new Chance(1);
+
 export default ({
     onTurnStart, // is called at the beginning of the AI's turn
     selectMove, //  immediately choose and execute a move. returns false if that move is not valid.
@@ -15,7 +18,8 @@ export default ({
         timeAlotted, // time between when this function is called and when time will be expired
         availableMoves, // a convenient list of all the moves you can make. if desired, just select one and pass it to selectMove()
     })=>{
-        selectMove(availableMoves[0]); // the simplest, most basic strategy. this is guaranteed to lose.
+        // console.log("selected move...");
+        selectMove(chance.pick(availableMoves)); // the simplest, most basic strategy. this is guaranteed to lose.
     });
 
     onTimeElapsedWarning(({
@@ -26,7 +30,7 @@ export default ({
         availableMoves, // a convenient list of all the moves you can make. if desired, just select one and pass it to selectMove()
     })=>{
         // it is a good idea to provision a move on the time elapsed warning
-        provisionMove(availableMoves[0]);
+        // provisionMove(availableMoves[0]);
     })
 
     onTaunt(({message,gesture,opponentData})=>{

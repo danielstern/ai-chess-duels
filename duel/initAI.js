@@ -25,6 +25,7 @@ export const initAI = (ai)=>{
         onTaunt:cb=>listeners.executeTauntListeners.push(cb),
         dispatchTurnStart:(args)=>listeners.turnStart.forEach(listener=>listener(args)),
         dispatchTimeElapsedWarning:(args)=>listeners.timeElapsedWarning.forEach(listener=>listener(args)),
-        dispatchTaunt:cb=>listeners.tauntListeners.push(cb)
+        dispatchTaunt:cb=>listeners.tauntListeners.push(cb),
+        endTurn:()=>{[`selectMoveListeners`,`provisionMoveListeners`].forEach(key=>listeners[key] = [])}
     };
 }
