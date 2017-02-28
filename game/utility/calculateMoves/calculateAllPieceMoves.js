@@ -14,6 +14,8 @@ export const calculateAllPieceMoves = (board)=>({type,rank,file,color})=>{
             return calculate.calculateMovesBishop(board)({rank,file,color,type});
         case Type.QUEEN:
             return calculate.calculateMovesQueen(board)({rank,file,color,type});
+        case Type.KING:
+            return calculate.calculateMovesKing(board)({rank,file,color,type});
         }
 
     return [];
