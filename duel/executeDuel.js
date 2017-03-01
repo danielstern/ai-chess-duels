@@ -1,7 +1,6 @@
 import reactDOM from 'react-dom'
 import React from 'react';
 import {createStore} from 'redux';
-import {calculateAllBoardMoves} from './../game/utility';
 import {
     reducer,
     defaultState
@@ -11,7 +10,8 @@ import {BoardDisplay} from './../game/components/BoardDisplay'
 
 import {
     transformBoard,
-    kingIsInCheck
+    kingIsInCheck,
+    calculateAllBoardMoves
 } from './../game/utility'
 import {
     movePiece
@@ -33,6 +33,10 @@ const startTurn =({id, store,players,onConclude})=>{
     const player = players.find(player=>player.id===id);
     const moves = calculateAllBoardMoves(state.board)(player.color,true);
 
+    if (state.board.length <= 2) {
+        onConclude({winner:undefined})
+    }
+
     if (moves.length === 0) {
         if (kingIsInCheck(state.board)) {
             onConclude({winner:nextID(id)});
@@ -49,9 +53,12 @@ const startTurn =({id, store,players,onConclude})=>{
         opponentData:undefined,
         timeAlotted:allottedTime,
         availableMoves:moves,
+        color:player.color,
+        opponentColor:player.color == "WHITE" ? "BLACK" : "WHITE",
         utilities:{
             transformBoard,
-            kingIsInCheck
+            kingIsInCheck,
+            calculateAllBoardMoves
         }
     };
 
