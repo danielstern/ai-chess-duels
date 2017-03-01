@@ -7,9 +7,9 @@ import {
     calculateMovesInDirection
 } from './calculateMovesInDirection';
 
-export const calculateMovesPawn = (board)=>({rank,file,color,type})=>{
+export const calculateMovesPawn = (board)=>({rank,file,color,type},preventOwnCheck)=>{
     const moves = [];
-    const calculator = calculateMovesInDirection(board)({rank,file,color,type});
+    const calculator = calculateMovesInDirection(board)({rank,file,color,type},preventOwnCheck);
     const direction = color === Color.BLACK ? Direction.DOWN : Direction.UP;
     const frontSteps = ((color === Color.WHITE && rank === "2") || (color === Color.BLACK && rank === "7")) ? 2 : 1;
     moves.push(

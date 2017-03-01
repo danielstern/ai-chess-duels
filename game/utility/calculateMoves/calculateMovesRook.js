@@ -3,17 +3,10 @@ import {
 } from '../../constants';
 
 import {
-    calculateMovesInDirection
-} from './calculateMovesInDirection';
+    calculateMovesDirectionalPiece
+} from './calculateMovesDirectionalPiece'
 
-export const calculateMovesRook = (board)=>({rank,file,color,type})=>{
-    const moves = [];
-    const calculator = calculateMovesInDirection(board)({rank,file,color,type});
-    [Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.UP].forEach(direction=>{
-        moves.push(
-            ...calculator({direction,steps:8,canDestroyEnemyPiece:true}),
-        );
-    });
-
-    return moves;
+export const calculateMovesRook = (board)=>(piece,preventOwnCheck)=>{
+    let directions = [Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.UP];
+    return calculateMovesDirectionalPiece(board)(piece)({directions,preventOwnCheck,steps:8});
 };

@@ -15,6 +15,7 @@ You will need to compile your application
 - No outside help. You can't  make any calls to external scripts.
 - Don't crash! AIs that hang or crash will lose by default
 - Keep it clean! Inappropriate taunts will get your taunting priveleges revoked
+- Secret... for now: Your script is kept secret until the end of each season, when it is revealed so that the community can learn from the code (and of course, revel in your brilliance)
 
 ### Tips
 - Think Async! You don't want the timer to run out while your bot is thinking. Build your algorithm out of small, asynchronous pieces that can be stopped if time is about to run out.

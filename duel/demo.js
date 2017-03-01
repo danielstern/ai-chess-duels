@@ -13,7 +13,7 @@ const chance = new Chance(1);
 const player1IsWhite = chance.bool();
 
 import {
-    initDuel
+    executeDuel
 } from './executeDuel';
 
 
@@ -30,4 +30,14 @@ const players = [{
     ai:ai2
 }];
 
-initDuel({players,player1IsWhite});
+const handleDuelConclude =({winner})=>{
+    console.log("Duel over... the winner is:",winner);
+    // startDueling();
+}
+const startDueling = ()=>{
+    executeDuel({players,player1IsWhite})(({winner})=>{
+        handleDuelConclude({winner});
+    });
+}
+
+startDueling();

@@ -3,17 +3,10 @@ import {
 } from '../../constants';
 
 import {
-    calculateMovesInDirection
-} from './calculateMovesInDirection';
+    calculateMovesDirectionalPiece
+} from './calculateMovesDirectionalPiece'
 
-export const calculateMovesKing = (board)=>({rank,file,color,type})=>{
-    const moves = [];
-    const calculator = calculateMovesInDirection(board)({rank,file,color,type});
-    Object.values(Direction).forEach(direction=>{
-        moves.push(
-            ...calculator({direction,steps:1}),
-        );
-    });
-
-    return moves;
+export const calculateMovesKing = (board)=>(piece,preventOwnCheck)=>{
+    let directions = Object.values(Direction);
+    return calculateMovesDirectionalPiece(board)(piece)({directions,preventOwnCheck,steps:1});
 };

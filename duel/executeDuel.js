@@ -1,7 +1,7 @@
 import reactDOM from 'react-dom'
 import React from 'react';
 import {createStore} from 'redux';
-import {getAvailableMoves} from './../game/utility';
+import {calculateAllBoardMoves} from './../game/utility';
 import {
     reducer,
     defaultState
@@ -9,6 +9,10 @@ import {
 
 import {BoardDisplay} from './../game/components/BoardDisplay'
 
+import {
+    transformBoard,
+    kingIsInCheck
+} from './../game/utility'
 import {
     movePiece
 } from './../game/actions'
@@ -23,18 +27,32 @@ const nextID = (id)=>{
     return id === "p1" ? "p2" : "p1";
 };
 
-const startTurn =({id, store,players})=>{
+const startTurn =({id, store,players,onConclude})=>{
     const timers = [];
     const state = store.getState();
     const player = players.find(player=>player.id===id);
-    const moves = getAvailableMoves(state.board)(player.color);
+    const moves = calculateAllBoardMoves(state.board)(player.color,true);
+
+    if (moves.length === 0) {
+        if (kingIsInCheck(state.board)) {
+            onConclude({winner:nextID(id)});
+        } else {
+            onConclude({winner:undefined});
+        }
+        return;
+
+    }
 
     const meta = {
         boardState:state.board,
         gameHistory:state.history,
         opponentData:undefined,
         timeAlotted:allottedTime,
-        availableMoves:moves
+        availableMoves:moves,
+        utilities:{
+            transformBoard,
+            kingIsInCheck
+        }
     };
 
     player.ai.onSelectMove((move)=>{
@@ -42,7 +60,7 @@ const startTurn =({id, store,players})=>{
             player.ai.endTurn();
             timers.forEach(clearTimeout);
             movePiece(store)(move);
-            startTurn({id:nextID(id),store,players});
+            startTurn({id:nextID(id),store,players,onConclude});
         },100);
 
     });
@@ -59,9 +77,14 @@ const startTurn =({id, store,players})=>{
     },allottedTime));
 };
 
-export const initDuel = ({players,player1IsWhite})=>{
+export const executeDuel = ({players,player1IsWhite})=>{
     const duelStore = createStore(reducer,defaultState);
+    const onConclude = (meta)=>{cbFunction(meta)};
+    let cbFunction;
     duelStore.subscribe(()=>render(duelStore));
     render(duelStore);
-    startTurn({id:player1IsWhite ? "p1" : "p2", store:duelStore,players});
+    startTurn({id:player1IsWhite ? "p1" : "p2", store:duelStore,players,onConclude});
+    return (cb)=>{
+        cbFunction = cb;
+    };
 };

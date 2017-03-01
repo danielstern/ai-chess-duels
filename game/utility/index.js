@@ -1,6 +1,6 @@
 export {getBoard} from './getBoard';
 export {initAI} from '../../duel/initAI';
-export {getAvailableMoves} from './calculateMoves/getAvailableMoves';
+export {calculateAllBoardMoves} from './calculateMoves/calculateAllBoardMoves';
 export {calculateAllPieceMoves} from './calculateMoves/calculateAllPieceMoves';
 export {getGreaterRank} from './getGreaterRank';
 export {getGreaterFile} from './getGreaterFile';
@@ -10,3 +10,4 @@ export {getPieceAtPosition} from './getPieceAtPosition';
 export {piecesMatch} from './piecesMatch';
 export {transformBoard} from './transformBoard'
 export {kingIsInCheck} from './kingIsInCheck'
+export {transformPosition} from './transformPosition';

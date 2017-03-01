@@ -1,25 +1,17 @@
 import {
-    Direction,
-    Type
-} from '../../constants';
-
-import {
     kingIsInCheck,
     transformBoard
 } from './../'
 
 import {
-    getGreaterRank,
-    getLesserRank,
-    getGreaterFile,
-    getLesserFile,
     getPieceAtPosition
 } from './../'
 
+import {
+    transformPosition
+} from '../transformPosition';
 
-
-
-export const calculateMovesInDirection = (board)=>(piece)=>({steps = 8, canDestroyEnemyPiece = true, mustDestroyEnemyPiece = false, direction})=>{
+export const calculateMovesInDirection = (board)=>(piece,preventOwnCheck = false)=>({steps = 8, canDestroyEnemyPiece = true, mustDestroyEnemyPiece = false, direction})=>{
     let moves = [];
     const {rank,file,color} = piece;
     let encounteredPiece = false;
@@ -27,21 +19,9 @@ export const calculateMovesInDirection = (board)=>(piece)=>({steps = 8, canDestr
     let newFile = file;
 
     while (newRank && newFile && !encounteredPiece && steps--) {
-        if (direction.includes(Direction.UP)){
-            newRank = getGreaterRank(newRank);
-        }
-
-        if (direction.includes(Direction.DOWN)){
-            newRank = getLesserRank(newRank);
-        }
-
-        if (direction.includes(Direction.LEFT)){
-            newFile = getLesserFile(newFile);
-        }
-
-        if (direction.includes(Direction.RIGHT)){
-            newFile = getGreaterFile(newFile);
-        }
+        const newPosition = transformPosition({rank:newRank,file:newFile})(direction);
+        newFile = newPosition.file;
+        newRank = newPosition.rank;
 
         if (newRank && newFile) {
             const newPosition = {rank:newRank,file:newFile};
@@ -50,7 +30,8 @@ export const calculateMovesInDirection = (board)=>(piece)=>({steps = 8, canDestr
             if (pieceInNewPosition)
             {
                 encounteredPiece = true;
-                if (canDestroyEnemyPiece && pieceInNewPosition.color !== color && pieceInNewPosition.type !== Type.KING)
+
+                if (canDestroyEnemyPiece && pieceInNewPosition.color !== color)
                 {
                     moves.push({piece,newPosition,takenPiece:pieceInNewPosition});
                 }
@@ -62,7 +43,10 @@ export const calculateMovesInDirection = (board)=>(piece)=>({steps = 8, canDestr
         }
     }
 
-    const filterMoves = moves
-        .filter(move=>!kingIsInCheck(board)(transformBoard(board)(move)));
-    return filterMoves;
+    if (preventOwnCheck){
+        moves = moves
+            .filter(move=>!kingIsInCheck(transformBoard(board)(move))(color));
+    }
+
+    return moves;
 };

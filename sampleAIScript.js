@@ -18,8 +18,9 @@ export default ({
         timeAlotted, // time between when this function is called and when time will be expired
         availableMoves, // a convenient list of all the moves you can make. if desired, just select one and pass it to selectMove()
     })=>{
-        // console.log("selected move...");
+        // debugger;
         selectMove(chance.pick(availableMoves)); // the simplest, most basic strategy. this is guaranteed to lose.
+        // selectMove(availableMoves.find(move=>move.takenPiece) || chance.pick(availableMoves)); // prioritizes taking enemy pieces. an effective, but crude strategem.
     });
 
     onTimeElapsedWarning(({
