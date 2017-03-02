@@ -7,7 +7,7 @@ import {
     piecesMatch
 } from './../utility';
 
-export const movePiece = (store)=>({piece,newPosition,takenPiece,special,promoteTo})=>{
+export const movePiece = (store)=>({piece,newPosition,takenPiece,special,promoteTo,targetRook,rookNewPosition})=>{
     const pieceAtPosition = getPieceAtPosition(store.getState().board)(newPosition);
 
     if (special === Action.EN_PASSANT) {
@@ -30,6 +30,10 @@ export const movePiece = (store)=>({piece,newPosition,takenPiece,special,promote
         const promotionType = promoteTo;
         store.dispatch({type:Action.REMOVE_PIECE,piece:piece});
         store.dispatch({type:Action.CREATE_PIECE,piece:{...newPosition,type:promotionType,color:piece.color}});
+    }
+
+    if (special === Action.CASTLE) {
+        movePiece(store)({piece:targetRook,newPosition:rookNewPosition});
     }
 
     store.dispatch({type:Action.MOVE_PIECE,piece,newPosition});

@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 module.exports = {
     module: {
@@ -12,7 +13,7 @@ module.exports = {
                     /(node_modules)/,
                 ],
 
-                test: /\.jsx?$/,
+                // test: /\.jsx?$/,
 
                 // Options to configure babel with
                 query: {
@@ -32,12 +33,15 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "public"),
-        publicPath: "/",
-        filename: "main.js"
+        publicPath: "/assets",
+        filename: "[name].bundle.js"
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
     },
+    // devTool:new webpack.SourceMapDevToolPlugin({
+    //     filename: '[file].map'
+    // })
     devServer: { inline: true },
     devtool: 'source-map'
 }

@@ -23,18 +23,14 @@ export const Direction = {
     DOWN_RIGHT :`DOWN_RIGHT`
 };
 
-// ACTIONS
 export const Action = {
     REMOVE_PIECE:`REMOVE_PIECE`,
     MOVE_PIECE:`MOVE_PIECE`,
     CREATE_PIECE:`CREATE_PIECE`,
     EN_PASSANT:`EN_PASSANT`,
-    PROMOTE:`PROMOTE`
+    PROMOTE:`PROMOTE`,
+    CASTLE:`CASTLE`
 };
-
-// export const MOVE = `MOVE`;
-// export const CASTLE = `CASTLE`;
-// export const EN_PASSANT = `EN_PASSANT`;
 
 export const Rank = {
     1:"1",
@@ -47,7 +43,6 @@ export const Rank = {
     8:"8",
 };
 
-// FILES
 export const File = {
     a:"a",
     b:"b",

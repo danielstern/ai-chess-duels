@@ -63,13 +63,19 @@ const startTurn =({id, store,players,onConclude})=>{
         }
     };
 
+    let moveSelected = false;
     player.ai.onSelectMove((move)=>{
-        setTimeout(()=>{
-            player.ai.endTurn();
-            timers.forEach(clearTimeout);
-            movePiece(store)(move);
-            startTurn({id:nextID(id),store,players,onConclude});
-        },100);
+
+       if (!moveSelected) {
+           setTimeout(()=>{
+               player.ai.endTurn();
+               timers.forEach(clearTimeout);
+               movePiece(store)(move);
+               startTurn({id:nextID(id),store,players,onConclude});
+           },100);
+       }
+        moveSelected = true;
+
 
     });
 

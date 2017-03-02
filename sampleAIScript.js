@@ -1,5 +1,5 @@
 import Chance from 'chance';
-const chance = new Chance(1);
+const chance = new Chance(1111);
 
 export default ({
     onTurnStart, // is called at the beginning of the AI's turn
@@ -24,6 +24,22 @@ export default ({
             calculateAllBoardMoves
         }
     })=>{
+        //CASTLE TEST
+        // if (availableMoves.find(move=>move.special)){
+        //     // debugger;
+        //     selectMove(availableMoves.find(move=>move.special));
+        // } else {
+        //     const goodMoves = availableMoves.filter(move=>move.piece.type !== "KING" && move.piece.type !== "ROOK");
+        //     if (goodMoves.length === 0) {
+        //         // debugger;
+        //         selectMove(availableMoves[0]);
+        //     } else {
+        //         selectMove(chance.pick(goodMoves));
+        //     }
+        //
+        // }
+        //
+
         // PAWN TEST
         // if (availableMoves.find(move=>move.special)){
         //     debugger;
@@ -43,9 +59,11 @@ export default ({
 
         // selectMove(chance.pick(availableMoves)); // the simplest, most basic strategy. this is guaranteed to lose.
         // selectMove(availableMoves.find(move=>move.takenPiece) || chance.pick(availableMoves)); // prioritizes taking enemy pieces. an effective, but crude strategem.
+
+        // Your Standard Strategy
         selectMove(availableMoves
                 .find(move=>calculateAllBoardMoves(transformBoard(boardState)(move))(opponentColor)
-                    .filter(move=>move.takenPiece).length === 0) || chance.pick(availableMoves)) // a defensive stance... prioritizes moves where own pieces will not be taken
+                    .filter(move=>move.takenPiece).length === 0) || chance.pick(availableMoves)); // a defensive stance... prioritizes moves where own pieces will not be taken
     });
 
     onTimeElapsedWarning(({availableMoves})=>{
