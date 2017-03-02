@@ -6,8 +6,8 @@ import {
     initAI,
 } from './initAI';
 
-import AI1 from '../sampleAIScript';
-import AI2 from '../sampleAIScript';
+import AI1 from '../AIScript';
+import AI2 from '../AIScript';
 import Chance from 'chance';
 const chance = new Chance(1);
 const player1IsWhite = chance.bool();

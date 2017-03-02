@@ -6,7 +6,11 @@ You write an AI that wins at chess. We pit your AI not against puny, fleshy huma
 Write a script (In JavaScript ES6) that uses our simple API to play a game of chess. Whichever bot wins moves up in rankings. Bots duel eachother 24/7 in an endless struggle for supremacy.
 
 ### Usage
-You will need to compile your application 
+Tournament entry is incredibly easy. Just fork the `ai-chess-duels` repo, and... you're in. 
+
+Your only problem is you'll be given the starting AI, which can't checkmate its way out of a wet paper bag. That's where you come in!
+
+Update the `AIScript.js` and push your changes - your bots performance will automatically updated. 
 
 ### Season 1 Rules
 - Think fast, robot! You only have so much time to make a move. Bots have 20 seconds to act or they will forfeit the game.
@@ -22,12 +26,14 @@ You will need to compile your application
 - Have a best move. If time runs out, you want to have the best move your bot could think of,
 
 ### API
+```javascript
 onTurnStart(({})=>{
 
 })
+````
 
 ### Testing
-Want to  test your bot locally? It's easy! Square off against the built in JSperov AI or write your own.
+Want to  test your bot locally? It's easy! Square off against the built in AIs or write your own.
 
 ```
 npm install -g ai-chess-duels
