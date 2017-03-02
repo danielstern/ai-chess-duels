@@ -4,12 +4,12 @@ import {
 
 import * as calculate from './'
 
-export const calculateAllPieceMoves = (board)=>({type,rank,file,color},preventOwnCheck)=>{
+export const calculateAllPieceMoves = (board,history)=>({type,rank,file,color},preventOwnCheck)=>{
     switch (type) {
         case Type.ROOK:
             return calculate.calculateMovesRook(board)({rank,file,color,type},preventOwnCheck);
         case Type.PAWN:
-            return calculate.calculateMovesPawn(board)({rank,file,color,type},preventOwnCheck);
+            return calculate.calculateMovesPawn(board,history)({rank,file,color,type},preventOwnCheck);
         case Type.BISHOP:
             return calculate.calculateMovesBishop(board)({rank,file,color,type},preventOwnCheck);
         case Type.QUEEN:

@@ -31,7 +31,7 @@ const startTurn =({id, store,players,onConclude})=>{
     const timers = [];
     const state = store.getState();
     const player = players.find(player=>player.id===id);
-    const moves = calculateAllBoardMoves(state.board)(player.color,true);
+    const moves = calculateAllBoardMoves(state.board,state.history)(player.color,true);
 
     if (state.board.length <= 2) {
         onConclude({winner:undefined})
@@ -68,7 +68,7 @@ const startTurn =({id, store,players,onConclude})=>{
             timers.forEach(clearTimeout);
             movePiece(store)(move);
             startTurn({id:nextID(id),store,players,onConclude});
-        },100);
+        },1000);
 
     });
 

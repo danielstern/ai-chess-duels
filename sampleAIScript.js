@@ -24,12 +24,20 @@ export default ({
             calculateAllBoardMoves
         }
     })=>{
-        // debugger;
+        // PAWN TEST
+        if (availableMoves.find(move=>move.special)){
+            // debugger;
+            selectMove(availableMoves.find(move=>move.special));
+        } else {
+            selectMove(chance.pick(availableMoves.filter(move=>move.piece.type === "PAWN")));
+        }
+        ////
+
         // selectMove(chance.pick(availableMoves)); // the simplest, most basic strategy. this is guaranteed to lose.
         // selectMove(availableMoves.find(move=>move.takenPiece) || chance.pick(availableMoves)); // prioritizes taking enemy pieces. an effective, but crude strategem.
-        selectMove(availableMoves
-                .find(move=>calculateAllBoardMoves(transformBoard(boardState)(move))(opponentColor)
-                    .filter(move=>move.takenPiece).length === 0) || chance.pick(availableMoves)) // a defensive stance... prioritizes moves where own pieces will not be taken
+        // selectMove(availableMoves
+        //         .find(move=>calculateAllBoardMoves(transformBoard(boardState)(move))(opponentColor)
+        //             .filter(move=>move.takenPiece).length === 0) || chance.pick(availableMoves)) // a defensive stance... prioritizes moves where own pieces will not be taken
     });
 
     onTimeElapsedWarning(({availableMoves})=>{

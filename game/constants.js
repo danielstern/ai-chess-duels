@@ -26,7 +26,8 @@ export const Direction = {
 // ACTIONS
 export const Action = {
     REMOVE_PIECE:`REMOVE_PIECE`,
-    MOVE_PIECE:`MOVE_PIECE`
+    MOVE_PIECE:`MOVE_PIECE`,
+    EN_PASSANT:`EN_PASSANT`
 };
 
 // export const MOVE = `MOVE`;

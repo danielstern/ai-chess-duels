@@ -17,7 +17,7 @@ export const isValidPosition = ({rank,file})=>{
     return rank && file;
 };
 
-export const calculateMovesKnight = (board)=>(piece,preventOwnCheck)=>{
+export const calculateMovesKnight = (board,history)=>(piece,preventOwnCheck)=>{
     let moves = [];
     const {rank,file,color} = piece;
 
@@ -60,7 +60,7 @@ export const calculateMovesKnight = (board)=>(piece,preventOwnCheck)=>{
     if (preventOwnCheck) {
         moves = moves
             // .filter(move=>!kingIsInCheck((transformBoard(board)(move))(color)));
-            .filter(move=>!kingIsInCheck(transformBoard(board)(move))(color));
+            .filter(move=>!kingIsInCheck(transformBoard(board)(move),history)(color));
     }
     // console.log("Night moves?",moves);
     return moves

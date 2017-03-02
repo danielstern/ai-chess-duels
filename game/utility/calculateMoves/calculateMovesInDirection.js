@@ -11,7 +11,7 @@ import {
     transformPosition
 } from '../transformPosition';
 
-export const calculateMovesInDirection = (board)=>(piece,preventOwnCheck = false)=>({steps = 8, canDestroyEnemyPiece = true, mustDestroyEnemyPiece = false, direction})=>{
+export const calculateMovesInDirection = (board,history)=>(piece,preventOwnCheck = false)=>({steps = 8, canDestroyEnemyPiece = true, mustDestroyEnemyPiece = false, direction})=>{
     let moves = [];
     const {rank,file,color} = piece;
     let encounteredPiece = false;
@@ -45,7 +45,7 @@ export const calculateMovesInDirection = (board)=>(piece,preventOwnCheck = false
 
     if (preventOwnCheck){
         moves = moves
-            .filter(move=>!kingIsInCheck(transformBoard(board)(move))(color));
+            .filter(move=>!kingIsInCheck(transformBoard(board,history)(move))(color));
     }
 
     return moves;

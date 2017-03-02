@@ -2,9 +2,14 @@ import {
     defaultState
 } from './defaultState'
 
-export const history = (state = defaultState.history, {type})=>{
-    switch (type) {
+import {
+    Action
+} from './../constants'
 
+export const history = (state = defaultState.history, action)=>{
+    switch (action.type) {
+        case Action.MOVE_PIECE:
+            return [...state,action];
     }
     return state;
 }
