@@ -30,36 +30,34 @@ export const calculateMovesPawn = (board,history)=>(piece,preventOwnCheck)=>{
     if (history) {
         const lastMove = history[history.length - 1];
         if (lastMove) {
-            if (lastMove.piece.type === Type.PAWN) {
-
-                if (lastMove.piece.color !== color) {
-                    // debugger;
-                    if ((lastMove.piece.rank === "2" && lastMove.newPosition.rank === "4") || (lastMove.piece.rank === "7" && lastMove.newPosition.rank === "5")) {
-                        // if the pawn is right next to the pawn described here...
-                        if ((file === getGreaterFile(lastMove.newPosition.file)) || (file === getLesserFile(lastMove.newPosition.file))) {
-                            if (rank === lastMove.newPosition.rank) {
-                                console.log("En passant?");
-                                // debugger;
-
-
-                                const newRank = lastMove.piece.color === "BLACK" ? "7" : "3";
-                                const move = {piece,takenPiece:{...lastMove.piece,...lastMove.newPosition},newPosition:{file:lastMove.piece.file,rank:newRank},special:Action.EN_PASSANT};
-                                // debugger;
-                                // big errors...
-                                moves.push(move);
-                            }
-                            // add a new move with the destination right behind that pawn
-
+            if (lastMove.piece.type === Type.PAWN && lastMove.piece.color !== color) {
+                if ((lastMove.piece.rank === "2" && lastMove.newPosition.rank === "4") || (lastMove.piece.rank === "7" && lastMove.newPosition.rank === "5")) {
+                    if ((file === getGreaterFile(lastMove.newPosition.file)) || (file === getLesserFile(lastMove.newPosition.file))) {
+                        if (rank === lastMove.newPosition.rank) {
+                            const newRank = lastMove.piece.color === "BLACK" ? "7" : "3";
+                            const move = {piece,takenPiece:{...lastMove.piece,...lastMove.newPosition},newPosition:{file:lastMove.piece.file,rank:newRank},special:Action.EN_PASSANT};
+                            moves.push(move);
                         }
                     }
                 }
 
             }
         }
-
-
     }
+
+    // promote
+    let newMoves = [];
+    moves.forEach(move=>{
+        if ((color === Color.BLACK && move.newPosition.rank === "1") || (color === Color.WHITE && move.newPosition.rank === "8")) {
+            [Type.QUEEN,Type.KING,Type.KNIGHT,Type.BISHOP].forEach(type=>{
+                newMoves.push({...move,special:Action.PROMOTE,promoteTo:type});
+            })
+        } else {
+            newMoves.push(move);
+        }
+    });
+
     // deugger;
 
-    return moves;
+    return newMoves;
 };

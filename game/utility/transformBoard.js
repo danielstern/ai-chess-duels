@@ -1,4 +1,4 @@
-export const transformBoard=(board)=>({piece,newPosition,takenPiece})=>{
+export const transformBoard=(board)=>({piece,newPosition,takenPiece,createdPiece})=>{
     let newBoard = board.filter(_piece => !piece || !(_piece.rank === piece.rank && _piece.file === piece.file));
     if (takenPiece) {
         newBoard = newBoard
@@ -8,6 +8,12 @@ export const transformBoard=(board)=>({piece,newPosition,takenPiece})=>{
     if (piece) {
         newBoard = newBoard
             .concat([{...piece,...newPosition}])
+    }
+
+    if (createdPiece) {
+        // debugger;
+        newBoard = newBoard
+            .concat([{...createdPiece}])
     }
     return newBoard;
 }

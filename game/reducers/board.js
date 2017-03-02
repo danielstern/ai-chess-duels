@@ -17,7 +17,8 @@ export const board = (state = defaultState.board,{type,piece,newPosition,promoti
             // return state.filter(_piece => !(_piece.rank === piece.rank && _piece.file === piece.file));
         case Action.MOVE_PIECE:
             return transformBoard(state)({piece,newPosition});
-            // return state.filter(_piece => !(_piece.rank === piece.rank && _piece.file === piece.file)).concat([{...piece,...newPosition}]);
+        case Action.CREATE_PIECE:
+            return transformBoard(state)({createdPiece:piece});
         case `PROMOTE_PIECE`:
     }
     return state;

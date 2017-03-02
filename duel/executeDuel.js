@@ -34,7 +34,8 @@ const startTurn =({id, store,players,onConclude})=>{
     const moves = calculateAllBoardMoves(state.board,state.history)(player.color,true);
 
     if (state.board.length <= 2) {
-        onConclude({winner:undefined})
+        onConclude({winner:undefined});
+        return;
     }
 
     if (moves.length === 0) {
@@ -68,7 +69,7 @@ const startTurn =({id, store,players,onConclude})=>{
             timers.forEach(clearTimeout);
             movePiece(store)(move);
             startTurn({id:nextID(id),store,players,onConclude});
-        },1000);
+        },100);
 
     });
 
