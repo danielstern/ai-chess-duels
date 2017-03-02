@@ -19,23 +19,25 @@ export const calculateMovesKing = (board,history)=>(piece,preventOwnCheck)=>{
     let directions = Object.values(Direction);
     moves.push(...calculateMovesDirectionalPiece(board)(piece)({directions,preventOwnCheck,steps:1}));
     if (history) {
-        // if the king has never moved...
+
+        // If the king has never moved...
         if (!history.find(action=>action.piece.color === piece.color && action.piece.type === Type.KING)) {
-            // and if the king is not in check...
+
+            // And if the king is not in check...
             if (!kingIsInCheck(board)(piece.color)){
-                // for each rook this player controls...
+
+                // For each rook this player controls...
                 [Direction.LEFT,Direction.RIGHT].forEach(direction=>{
-                    // if that rook has not moved...
-                    // const getPieceAtPosition = getPieceAtPosition;
+
+                    // If that rook has not moved...
                     const rookFile = Direction.LEFT ? File.a : File.h;
                     if (!history.find(action=>action.piece.color === piece.color && action.piece.type === "ROOK" && action.piece.file === (rookFile))){
-                        // console.log("Castle maybe with",direction);
+
+                        // And if each space between the king and  the rook is unoccupied
                         const needFreeFiles = direction === Direction.LEFT ? [File.b,File.c,File.d] : [File.f,File.g];
-                        // and if each space between the king and  the rook is unoccupied
                         if (needFreeFiles.every(file=>!getPieceAtPosition(board)({rank:piece.rank,file}))) {
-                            // debugger;
-                            console.log("Files ARE free");
-                            // and if moving one space or two spaces in the direction of that rook would not put the king in check
+
+                            // And if moving one space or two spaces in the direction of that rook would not put the king in check
                             const needSafeFiles = needFreeFiles.slice(0,2);
                             const filesSafe = needSafeFiles.every(file=>{
                                 const newPosition = {rank:piece.rank,file};
@@ -45,8 +47,9 @@ export const calculateMovesKing = (board,history)=>(piece,preventOwnCheck)=>{
                                     return true;
                                 }
                             });
+
                             if (filesSafe) {
-                                // console.log("And safe");
+                                // Then Castling is possible
                                 moves.push({
                                     piece,
                                     newPosition:{rank:piece.rank,file:needFreeFiles[1]},
@@ -55,13 +58,9 @@ export const calculateMovesKing = (board,history)=>(piece,preventOwnCheck)=>{
                                     rookNewPosition:{rank:piece.rank,file:needFreeFiles[2]}
                                 });
                             }
-                            // moves.push({pi})
                         }
                     }
-
-
                 });
-
             }
         }
     }

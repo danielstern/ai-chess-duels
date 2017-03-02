@@ -1,0 +1,7 @@
+{
+  "name":"The Chess Blaster",
+  "creator":"Daniel Stern",
+  "about":"Remember when I said I would checkmate you last? I lied.",
+  "season":1,
+  "entry":"./sampleAIScript.js"
+}

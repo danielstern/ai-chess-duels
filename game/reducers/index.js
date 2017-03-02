@@ -5,8 +5,6 @@ import {history} from './history';
 import {currentTurn} from './currentTurn';
 import {conceded} from './conceded';
 
-
-
 export const reducer = combineReducers({
     board,
     history,

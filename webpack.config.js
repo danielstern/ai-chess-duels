@@ -39,9 +39,6 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx'],
     },
-    // devTool:new webpack.SourceMapDevToolPlugin({
-    //     filename: '[file].map'
-    // })
     devServer: { inline: true },
     devtool: 'source-map'
 }

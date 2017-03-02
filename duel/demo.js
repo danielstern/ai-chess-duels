@@ -32,8 +32,7 @@ const players = [{
 
 const handleDuelConclude =({winner})=>{
     console.log("Duel over... the winner is:",winner);
-    setTimeout(startDueling,30000);
-    // startDueling();
+    setTimeout(startDueling,10000);
 }
 const startDueling = ()=>{
     executeDuel({players,player1IsWhite})(({winner})=>{

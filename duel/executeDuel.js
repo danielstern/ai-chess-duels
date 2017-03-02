@@ -27,13 +27,14 @@ const nextID = (id)=>{
     return id === "p1" ? "p2" : "p1";
 };
 
-const startTurn =({id, store,players,onConclude})=>{
+const startTurn =({id, store,players,onConclude,turnsElapsed = 0})=>{
+    turnsElapsed++;
     const timers = [];
     const state = store.getState();
     const player = players.find(player=>player.id===id);
     const moves = calculateAllBoardMoves(state.board,state.history)(player.color,true);
 
-    if (state.board.length <= 2) {
+    if (state.board.length <= 2 || turnsElapsed > 10000) {
         onConclude({winner:undefined});
         return;
     }
@@ -71,7 +72,7 @@ const startTurn =({id, store,players,onConclude})=>{
                player.ai.endTurn();
                timers.forEach(clearTimeout);
                movePiece(store)(move);
-               startTurn({id:nextID(id),store,players,onConclude});
+               startTurn({id:nextID(id),store,players,onConclude,turnsElapsed});
            },100);
        }
         moveSelected = true;

@@ -11,7 +11,6 @@ export const transformBoard=(board)=>({piece,newPosition,takenPiece,createdPiece
     }
 
     if (createdPiece) {
-        // debugger;
         newBoard = newBoard
             .concat([{...createdPiece}])
     }

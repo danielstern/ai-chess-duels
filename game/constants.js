@@ -10,7 +10,7 @@ export const Type = {
 export const Color = {
     WHITE : `WHITE`,
     BLACK : `BLACK`
-}
+};
 
 export const Direction = {
     UP : `UP`,

@@ -5,7 +5,6 @@ export default ({
     onTurnStart, // is called at the beginning of the AI's turn
     selectMove, //  immediately choose and execute a move. returns false if that move is not valid.
     provisionMove, // selects a move to be executed at the end of the time in case no other moves have been selected. returns false if that move is not valid
-    getLastError, // returns information about why the last move selected or provisioned returned false
     onTimeElapsedWarning, // is called when a limited amount of time remains
     taunt, // having no effect on gameplay, this message will be logged, and may be seen by your oppoonent. you can call this any time. it is not necessary to use taunt.
     onTaunt, // notifies you that the enemy AI has taunted you,
@@ -14,9 +13,8 @@ export default ({
     onTurnStart(({
         boardState, // a full readout of the current game state
         gameHistory, // a history of all the game's moves
-        opponentData, // metadata about your current opponent clever AI's can use to gain an edge,
         timeAlotted, // time between when this function is called and when time will be expired
-        availableMoves, // a convenient list of all the moves you can make. if desired, just select one and pass it to selectMove()
+        availableMoves, // a convenient list of all the moves you can make. just select one and pass it to selectMove()
         color, // your color
         opponentColor, // your opponent's color
         utilities:{
@@ -24,58 +22,37 @@ export default ({
             calculateAllBoardMoves
         }
     })=>{
-        //CASTLE TEST
-        // if (availableMoves.find(move=>move.special)){
-        //     // debugger;
-        //     selectMove(availableMoves.find(move=>move.special));
-        // } else {
-        //     const goodMoves = availableMoves.filter(move=>move.piece.type !== "KING" && move.piece.type !== "ROOK");
-        //     if (goodMoves.length === 0) {
-        //         // debugger;
-        //         selectMove(availableMoves[0]);
-        //     } else {
-        //         selectMove(chance.pick(goodMoves));
-        //     }
-        //
-        // }
-        //
+        // These are the simplest strategies possible! Using clever logic, you can create strategies that are much more complicated.
+        // Remember, you have limited time! If you run advanced calculations, make sure you regularly provision the best move in case time runs out.
 
-        // PAWN TEST
-        // if (availableMoves.find(move=>move.special)){
-        //     debugger;
-        //     selectMove(availableMoves.find(move=>move.special));
-        // } else {
-        //     selectMove(chance.pick(availableMoves.filter(move=>move.piece.type === "PAWN")));
-        // }
-        ////
-
-        // promote test
-        // if (availableMoves.find(move=>move.special)){
-        //     // debugger;
-        //     selectMove(availableMoves.find(move=>move.special));
-        // } else {
-        //     selectMove(availableMoves.find(move=>move.takenPiece) || chance.pick(availableMoves));
-        // }
-
+        // Simplest Strategy
         // selectMove(chance.pick(availableMoves)); // the simplest, most basic strategy. this is guaranteed to lose.
+
+        // Aggressive Strategy
         // selectMove(availableMoves.find(move=>move.takenPiece) || chance.pick(availableMoves)); // prioritizes taking enemy pieces. an effective, but crude strategem.
 
-        // Your Standard Strategy
-        selectMove(availableMoves
-                .find(move=>calculateAllBoardMoves(transformBoard(boardState)(move))(opponentColor)
-                    .filter(move=>move.takenPiece).length === 0) || chance.pick(availableMoves)); // a defensive stance... prioritizes moves where own pieces will not be taken
+        // Defensive Strategy (Don't Lose Pieces)
+        const safestMove = availableMoves.find(move=> {
+            const futureBoard = transformBoard(boardState)(move); // use the transformBoard utility to work with theoretical board states
+            const theoreticalNextTurnOpponentMoves = calculateAllBoardMoves(futureBoard)(opponentColor);
+            return theoreticalNextTurnOpponentMoves
+                    .filter(move => move.takenPiece).length === 0;
+        });
+
+        selectMove(safestMove || chance.pick(availableMoves));
     });
 
-    onTimeElapsedWarning(({availableMoves})=>{
+    // This is called when time is almost up, and is passed the same arguments as onTurnStart
+    onTimeElapsedWarning((meta)=>{
         // it is a good idea to provision a move on the time elapsed warning
-        provisionMove(availableMoves[0]);
+        // provisionMove(meta.availableMoves[0]);
     });
 
     onTaunt(({message,gesture,opponentData})=>{
         if (message.includes("Deep Blue")){
             taunt({message:"You leave him out of this!"});
         } else {
-            taunt({message:`My TI-35 plays chess better than you, ${opponentData.name}!`,gesture:`LAUGH`});
+            taunt({message:`My TI-34 plays chess better than you, ${opponentData.name}!`,gesture:`LAUGH`});
         }
     });
 

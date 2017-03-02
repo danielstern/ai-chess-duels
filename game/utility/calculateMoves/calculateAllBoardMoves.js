@@ -9,6 +9,5 @@ export const calculateAllBoardMoves = (board,history)=>(color, preventOwnCheck =
         availableMoves.push(...calculateAllPieceMoves(board,history)(piece,preventOwnCheck));
     });
 
-    // debugger;
     return availableMoves;
 };

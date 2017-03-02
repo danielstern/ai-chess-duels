@@ -9,10 +9,6 @@ import {
     transformPosition,
 } from './../'
 
-import {
-    calculateMovesInDirection
-} from './calculateMovesInDirection'
-
 export const isValidPosition = ({rank,file})=>{
     return rank && file;
 };
@@ -36,7 +32,6 @@ export const calculateMovesKnight = (board,history)=>(piece,preventOwnCheck)=>{
 
 
     patterns.forEach(pattern=>{
-        // debugger;
         let newPosition = {rank,file};
         pattern.forEach((step)=>{
             if (isValidPosition(newPosition)) {
@@ -56,12 +51,9 @@ export const calculateMovesKnight = (board,history)=>(piece,preventOwnCheck)=>{
         }
     });
 
-    // this doesn't work.. why??
     if (preventOwnCheck) {
         moves = moves
-            // .filter(move=>!kingIsInCheck((transformBoard(board)(move))(color)));
             .filter(move=>!kingIsInCheck(transformBoard(board)(move),history)(color));
     }
-    // console.log("Night moves?",moves);
     return moves
 };
